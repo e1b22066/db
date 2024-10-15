@@ -29,17 +29,14 @@ public class Sample3AuthConfiguration {
             .logoutSuccessUrl("/")) // ログアウト後に / にリダイレクト
         .authorizeHttpRequests(authz -> authz
             .requestMatchers(AntPathRequestMatcher.antMatcher("/sample4/**"))
-            .authenticated() // /sample3/以下は認証済みであること
+            .authenticated() // /sample4/以下は認証済みであること
             .requestMatchers(AntPathRequestMatcher.antMatcher("/**"))
             .permitAll())// 上記以外は全員アクセス可能
-    /*
-     * .csrf(csrf -> csrf
-     * .ignoringRequestMatchers(AntPathRequestMatcher.antMatcher("/h2-console/*")))/
-     * / h2-console用にCSRF対策を無効化
-     * .headers(headers -> headers
-     * .frameOptions(frameOptions -> frameOptions
-     * .sameOrigin()))
-     */;
+        .csrf(csrf -> csrf
+            .ignoringRequestMatchers(AntPathRequestMatcher.antMatcher("/h2-console/*")))
+        .headers(headers -> headers
+            .frameOptions(frameOptions -> frameOptions
+                .sameOrigin()));
 
     return http.build();
   }
