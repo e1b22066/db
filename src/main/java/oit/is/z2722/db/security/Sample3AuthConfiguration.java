@@ -32,11 +32,15 @@ public class Sample3AuthConfiguration {
             .authenticated() // /sample3/以下は認証済みであること
             .requestMatchers(AntPathRequestMatcher.antMatcher("/**"))
             .permitAll())// 上記以外は全員アクセス可能
-        .csrf(csrf -> csrf
-            .ignoringRequestMatchers(AntPathRequestMatcher.antMatcher("/h2-console/*")))// h2-console用にCSRF対策を無効化
-        .headers(headers -> headers
-            .frameOptions(frameOptions -> frameOptions
-                .sameOrigin()));
+    /*
+     * .csrf(csrf -> csrf
+     * .ignoringRequestMatchers(AntPathRequestMatcher.antMatcher("/h2-console/*")))/
+     * / h2-console用にCSRF対策を無効化
+     * .headers(headers -> headers
+     * .frameOptions(frameOptions -> frameOptions
+     * .sameOrigin()))
+     */;
+
     return http.build();
   }
 
